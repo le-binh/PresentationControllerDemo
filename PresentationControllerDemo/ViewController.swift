@@ -12,14 +12,19 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func goRed(_ sender: Any?) {
+        let redViewController = RedViewController(nibName: "RedViewController", bundle: nil)
+        redViewController.modalPresentationStyle = .custom
+        redViewController.transitioningDelegate = self
+        present(redViewController, animated: true, completion: nil)
     }
-
-
 }
 
+extension ViewController: UIViewControllerTransitioningDelegate {
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        return PresentationController(presentedViewController: presented, presenting: presenting)
+    }
+}
